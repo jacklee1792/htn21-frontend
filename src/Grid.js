@@ -1,29 +1,70 @@
-export const Grid = ({ arr, progress, row, col }) => {
+import { FaCircle, FaStar } from 'react-icons/fa';
+
+export const Grid = ({ arr, progress, row, col, countdown }) => {
+
+  const n = arr.length;
 
   let items = [];
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
       const item = arr[i][j];
-      const pos = progress[i][j];
-      const rem = item.length - pos;
-      const opacity = 0.5 * rem / 13;
-      const show = (i === row + 1 && j === col) || (i === row && j === col + 1);
+      const myPos = progress[0][i][j], otherPos = progress[1][i][j];
+      const myDone = myPos === item.length, otherDone = otherPos === item.length;
+      const [myRow, otherRow] = row;
+      const [myCol, otherCol] = col;
+      const myRem = item.length - myPos;
+      const opacity = 0.5 * myRem / 13;
+      const myIsAdjacent = (i === myRow + 1 && j === myCol) || (i === myRow && j === myCol + 1);
+      const showLtr = myIsAdjacent && !myDone && !otherDone;
+      const isMySquare = i === myRow && j === myCol;
+      const isOtherSquare = i === otherRow && j === otherCol;
       items.push(
         <div
-          className={`grid-item ${i === row && j === col ? "grid-item-sel" : ""}`}
-          style={{
+          className={`grid-item ${
+            isMySquare && isOtherSquare ? "outline-br" :
+              isMySquare ? "outline-b" : 
+              isOtherSquare ? "outline-r" : ""} ${
+            myDone ? "bg-b" :
+              otherDone ? "bg-r" : ""
+          }`
+          }
+          style={!myDone && !otherDone && (i !== 0 || j !== 0) ? {
             "background-color": `rgba(0, 0, 0, ${opacity})`
-          }}
+          } : {}}
         >
-          {show && <p>{item[pos]}<sub>{rem}</sub></p>}
+          {/* Draw the circle at the beginning */}
+          {(i === 0 && j === 0) && <FaCircle
+            style={{
+              height: '60%',
+              width: '60%',
+              color: 'rgba(0, 0, 0, 0.5)',
+              position: 'absolute',
+            }}
+          />}
+          {/* Draw the star at the end */}
+          {(i === n - 1 && j === n - 1) && <FaStar
+            style={{
+              height: '60%',
+              width: '60%',
+              color: 'rgba(255, 255, 255, 0.3)',
+              position: 'absolute',
+            }}
+          />}
+          {/* Draw the letter if it's adjacent to you */}
+          {showLtr && <p className="item-text">{item[myPos]}<sub>{myRem}</sub></p>}
         </div>
       )
     }
   }
 
   return (
-    <div className="grid">
-      {items}
+    <div className="grid-container">
+      {countdown !== 0 && <div className="overlay">
+        <p className="cd-text">{countdown}</p>
+      </div>}
+      <div className="grid">
+        {items}
+      </div>
     </div>
   );
 }
