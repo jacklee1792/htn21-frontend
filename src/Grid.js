@@ -1,6 +1,6 @@
 import { FaCircle, FaStar } from 'react-icons/fa';
 
-export const Grid = ({ arr, progress, row, col, countdown }) => {
+export const Grid = ({ arr, progress, row, col, countdown, gameOver }) => {
 
   const n = arr.length;
 
@@ -29,14 +29,14 @@ export const Grid = ({ arr, progress, row, col, countdown }) => {
           }`
           }
           style={!myDone && !otherDone && (i !== 0 || j !== 0) ? {
-            "background-color": `rgba(0, 0, 0, ${opacity})`
+            backgroundColor: `rgba(0, 0, 0, ${opacity})`
           } : {}}
         >
           {/* Draw the circle at the beginning */}
           {(i === 0 && j === 0) && <FaCircle
             style={{
-              height: '60%',
-              width: '60%',
+              height: '80%',
+              width: '80%',
               color: 'rgba(0, 0, 0, 0.5)',
               position: 'absolute',
             }}
@@ -44,8 +44,8 @@ export const Grid = ({ arr, progress, row, col, countdown }) => {
           {/* Draw the star at the end */}
           {(i === n - 1 && j === n - 1) && <FaStar
             style={{
-              height: '60%',
-              width: '60%',
+              height: '80%',
+              width: '80%',
               color: 'rgba(255, 255, 255, 0.3)',
               position: 'absolute',
             }}
