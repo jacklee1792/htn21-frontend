@@ -1,6 +1,8 @@
 import { FaCircle, FaStar } from 'react-icons/fa';
 
-export const Grid = ({ arr, progress, row, col, countdown, gameOver }) => {
+const sz = 3;
+
+export const Grid = ({ arr, progress, row, col, countdown, winner }) => {
 
   const n = arr.length;
 
@@ -18,6 +20,7 @@ export const Grid = ({ arr, progress, row, col, countdown, gameOver }) => {
       const showLtr = myIsAdjacent && !myDone && !otherDone;
       const isMySquare = i === myRow && j === myCol;
       const isOtherSquare = i === otherRow && j === otherCol;
+      const len = sz - (myPos % sz);
       items.push(
         <div
           className={`grid-item ${
@@ -51,7 +54,7 @@ export const Grid = ({ arr, progress, row, col, countdown, gameOver }) => {
             }}
           />}
           {/* Draw the letter if it's adjacent to you */}
-          {showLtr && <p className="item-text">{item[myPos]}<sub>{myRem}</sub></p>}
+          {showLtr && <p className="item-text">{item.slice(myPos, myPos + len)}<sub>{myRem}</sub></p>}
         </div>
       )
     }
@@ -59,6 +62,11 @@ export const Grid = ({ arr, progress, row, col, countdown, gameOver }) => {
 
   return (
     <div className="grid-container">
+      {winner === 1 ? <div className="overlay">
+        <p className="win-text">You Won!</p>
+      </div> : winner === -1 ? <div className="overlay">
+        <p className="win-text">You Lost!</p>
+      </div> : null}
       {countdown !== 0 && <div className="overlay">
         <p className="cd-text">{countdown}</p>
       </div>}

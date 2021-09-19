@@ -13,6 +13,7 @@ html {
     align-items: center;
     justify-content: center;
     color: rgba(0, 0, 0, 0.625);
+    padding-bottom: 5rem;
 }
 
 .grid-container {
@@ -153,4 +154,14 @@ li {
 
 .ctr {
     margin-top: -0.5rem;
+}
+
+.win-text {
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 32pt;
+}
+
+.mt {
+    margin-top: 1rem;
 }
