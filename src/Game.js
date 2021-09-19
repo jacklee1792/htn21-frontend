@@ -228,10 +228,10 @@ export const Game = ({ sock }) => {
           <div>
             <p>{window.location.href}</p>
           </div>
-          <MdContentCopy
-            className="copy-icon"
-            onClick={() => navigator.clipboard.writeText(window.location.href)}
-          />
+          {/*<MdContentCopy*/}
+          {/*  className="copy-icon"*/}
+          {/*  onClick={() => navigator.clipboard.writeText(window.location.href)}*/}
+          {/*/>*/}
         </div>
       </div> : status === 'started' ?
         <Grid countdown={countdown} winner={winner} {...gameState}

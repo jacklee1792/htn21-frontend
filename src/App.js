@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { Game } from './Game';
 
-const sock = io('http://10.40.25.26:8000',
+const sock = io('http://192.168.0.19:8000',
   {transports: ['websocket', 'polling', 'flashsocket']}
 )
 
